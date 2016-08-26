@@ -10,7 +10,7 @@ class Person
 };
 
 class Professor:public Person
-    {
+    {//
     public:
     int publications;
     int cur_id;
