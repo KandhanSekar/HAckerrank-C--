@@ -1,3 +1,4 @@
+//Implementing virtual classes in c++ , a hacker rank challenge , first of many s
 int i=1;
 int j=1;
 class Person
