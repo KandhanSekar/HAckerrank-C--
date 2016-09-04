@@ -1,0 +1,19 @@
+#include <cmath>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+
+int main() {
+    /* Enter your code here. Read input from STDIN. Print output to STDOUT */   
+    double price,tip,tax;
+    cin>>price;
+    cin>>tip;
+    cin>>tax;
+    price=price+(price*(tip/100))+(price*(tax/100));
+    
+    cout<<"The total meal cost is "<<round(price)<<" dollars.";
+    return 0;
+}
