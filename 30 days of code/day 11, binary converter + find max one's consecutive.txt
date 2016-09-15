@@ -1,0 +1,82 @@
+#include <map>
+#include <set>
+#include <list>
+#include <cmath>
+#include <ctime>
+#include <deque>
+#include <queue>
+#include <stack>
+#include <string>
+#include <bitset>
+#include <cstdio>
+#include <limits>
+#include <vector>
+#include <climits>
+#include <cstring>
+#include <cstdlib>
+#include <fstream>
+#include <numeric>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
+#include <unordered_map>
+#include<vector>
+
+using namespace std;
+vector<int> ar;
+
+
+
+void checkcount(vector<int> a)
+    {
+    int j=0;
+    int count=0;
+    int maxcount=0;
+    while(j<=ar.size())
+        {
+       if(ar[j]==1)
+           {
+           //cout<<"\n counter";
+           count=count+1;
+           //cout<<count;
+       }        
+        else
+            {
+            //cout<<"\nhere2";
+            if(count>maxcount){
+                maxcount=count;}
+            count=0;
+        }
+        j++;
+    }
+    cout<<maxcount;
+    
+}
+
+int main(){
+    
+    int n;
+    cin >> n;
+    while(n>1)
+        {
+        int a=n%2;
+        //cout<<a;
+        ar.push_back(a);
+            n=n/2;
+        //cout<<n;
+            if(n==1)
+                {
+                ar.push_back(n);
+                //exit(0);
+            }
+    }
+    //cout<<"array";
+   // int j=0;
+    //while(j<ar.size())
+      //  {
+        //cout<<ar[j];
+        //j++;
+    //}
+    checkcount(ar);
+    return 0;
+}
