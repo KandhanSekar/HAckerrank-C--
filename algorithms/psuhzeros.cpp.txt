@@ -1,0 +1,46 @@
+#include <iostream>
+#include<array>
+using namespace std;
+int* swap(int a[],int k)
+
+{
+	int zeropos=-1;
+	int count=0;
+	for(int i=0;i<k;i++)
+	{
+		if(a[i]==0)
+		{
+			if(count==0)
+			{zeropos=i;}
+			count=1;
+			cout<<"goes here"<<i<<"\n";
+			
+		}
+		else if(zeropos!=-1)
+		{
+			a[zeropos]=a[i];
+			a[i]=0;
+			zeropos++;
+		}
+		else
+		{
+			cout<<"cant happen";
+		}
+	}
+	return a;
+	
+}
+
+int main() {
+	// your code goes here
+	int a[6]={2,3,0,2,1,0};
+	for(int j=0;j<6;j++)
+	cout<<a[j];
+	int *b=swap(a,6);
+	cout<<b[0];
+	cout<<b[1];
+	cout<<b[2];
+	cout<<b[3];
+	cout<<b[4];cout<<b[5];
+	return 0;
+}
