@@ -1,0 +1,109 @@
+
+		statnode->type = IF_STMT;
+
+		statnode->if_stmt = ALLOC(struct IfStatement);
+		
+	
+
+		statnode->if_stmt->condition_operand1 = ALLOC(struct ValueNode);
+		
+
+
+	
+		struct ValueNode* somenode2;
+		somenode2 = ALLOC(struct ValueNode);
+
+		ttype = getToken();
+
+		if (ttype == ID)
+		{
+			int index = 0;
+			for (auto it = SymTable.begin(); it != SymTable.end(); ++it, ++index)
+			{
+
+				if (strcmp((*it)->name, token) == 0)
+				{
+					somenode2 = (*it);
+					break;
+				}
+			}
+		}
+		else if (ttype == NUM)
+		{
+			somenode2->value = atoi(token);
+			somenode2->name = NULL;
+		}
+		
+
+
+
+		statnode->if_stmt->condition_operand1 = somenode2;
+
+
+
+
+		ttype = getToken();
+		ttype = getToken();
+		statnode->if_stmt->condition_op = NOTEQUAL;
+		statnode->if_stmt->condition_operand2 = ALLOC(struct ValueNode);
+		
+
+		struct ValueNode* somenode3;
+		somenode3 = ALLOC(struct ValueNode);
+
+		ttype = getToken();
+
+		if (ttype == ID)
+		{
+			int index = 0;
+			for (auto it = SymTable.begin(); it != SymTable.end(); ++it, ++index)
+			{
+
+				if (strcmp((*it)->name, token) == 0)
+				{
+					somenode3 = (*it);
+					break;
+				}
+			}
+		}
+		else if (ttype == NUM)
+		{
+			somenode3->value = atoi(token);
+			somenode3->name = NULL;
+		}
+
+
+
+
+		statnode->if_stmt->condition_operand2 = somenode3;
+
+		ttype = getToken();
+		ttype = getToken();
+
+		statnode->if_stmt->false_branch = Body();
+		struct StatementNode* gt;
+		gt = ALLOC(struct StatementNode);
+		gt->type = GOTO_STMT;
+		gt->goto_stmt = ALLOC(struct GotoStatement);
+
+		struct StatementNode* noop;
+		noop = ALLOC(struct StatementNode);
+		noop->type = NOOP_STMT;
+		gt->goto_stmt->target = noop;
+
+		struct StatementNode* temp;
+		temp = ALLOC(struct StatementNode);
+		temp = statnode->if_stmt->false_branch;
+		while (temp->next != NULL)
+		{
+			temp = temp->next;
+		}
+		temp->next = gt;
+
+		statnode->if_stmt->true_branch = statnode;
+
+
+		statnode->next = noop;
+		return statnode;
+	}
+	return NULL;
