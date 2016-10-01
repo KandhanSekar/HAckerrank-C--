@@ -1,0 +1,72 @@
+//
+//  main.cpp
+//  Strings: Attribute Parser
+//
+//  Created by Saeid on 2/5/16.
+//  Copyright © 2016 Saeid. All rights reserved.
+//
+//  Problem: https://www.hackerrank.com/rest/contests/master/challenges/attribute-parser/download_pdf?language=English
+//
+/*
+ Additional Information:
+ • Tokenization using stringstream!
+ */
+
+#include <iostream>
+#include <vector>
+#include <string>
+#include <sstream>
+#include <map>
+using namespace std;
+
+int main() {
+    int code, command, counter = 0;
+    string input, token, previousTag = "", currentTag, attribute, value;
+    map<string, string> database;
+    map<string, string>::iterator it;
+    cin >> code >> command;
+    for (int i  = 0; i <= code; i++) {
+        getline(cin, input);
+        if (input[1] == '/') {
+            int position = 0;
+            bool found = false;
+            for (int j = (int)previousTag.size() - 1; j >= 0; j--) {
+                if (previousTag[j] == '.') {
+                    position = (int)j;
+                    found = true;
+                    break;
+                }
+            }
+            previousTag = found ? previousTag.substr(0, previousTag.size()-1-position) : "";
+        }
+        else {
+            stringstream inputString(input);
+            while (getline(inputString, token, ' ')) {
+                if (counter == 0) {
+                    token = token[token.size()-1] == '>' ? token.substr(0, token.size()-1) : token;
+                    previousTag += previousTag == "" ? token.substr(1) : "." + token.substr(1);
+                    currentTag = previousTag;
+                }
+                else if ((counter - 1) % 3 == 0) {
+                    attribute = token;
+                }
+                else if (counter % 3 == 0) {
+                    value = token[token.size()-1] == '>' ? token.substr(1, token.size() - 3) : token.substr(1, token.size() - 2);
+                    database.insert(make_pair(currentTag + "~" + attribute, value));
+                }
+                counter++;
+            }
+        }
+        counter = 0;
+    }
+    
+    for (int i = 0; i < command; i++) {
+        cin >> input;
+        it = database.find(input);
+        if (it != database.end()) {
+            cout << it -> second << endl;
+        }
+        else cout << "Not Found!" << endl;
+    }
+    return 0;
+}
