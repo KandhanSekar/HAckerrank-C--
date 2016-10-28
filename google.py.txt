@@ -1,0 +1,37 @@
+import sys
+currcount=-1
+l=[]
+maxlen=0
+a='.jpeg'
+def flown(line,count):
+	global currcount
+	if a not in line:
+		#print(count)
+		if count>currcount:
+			#print("hi")
+			currcount=count
+			l.append(len(line))
+			print(l)
+		elif count<currcount:
+			#print("hi2")
+			#print(count)
+			#print(currcount)
+			for i in range(count,currcount+1):
+				l.pop()
+			l.append(len(line))
+			print(l)
+		else:
+			print("hi1")
+			del(l[-1])
+			l.append(len(line))
+ 
+ 
+	else:
+		r=sum(l)+len(line)
+		print(r)
+for line in sys.stdin:
+	count=line.count(' ')
+	line=line.replace(" ","")
+	print(line)
+	print(len(line))
+	flown(line,count)
