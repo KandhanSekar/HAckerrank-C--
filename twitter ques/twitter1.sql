@@ -1,0 +1,1 @@
+select * from (select t1.id, 'Inner' as type from tree t1, tree t2 where t1.id = t2.p_id and t1.p_id is not null) union (select id, 'Root' as type from tree where p_id is null) union (select t1.id, 'Leaf' as type from tree t1 where not exists (select 1 from tree t2 where t2.p_id = t1.id) and t1.p_id is not null);
